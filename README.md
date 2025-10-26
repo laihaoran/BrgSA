@@ -146,13 +146,27 @@ bash test.sh
 | Component      | Configuration                                     |
 | -------------- | ------------------------------------------------- |
 | Vision Encoder | 3D ViT-B/16 (`224×224×112`, patch size `16×16×8`) |
-| Text Encoder   | PubMedBERT                                        |
+| Text Encoder   | CXRBERT                                        |
 | Optimizer      | AdamW (`lr=5e-5`, batch size=64)                   |
 | Hardware       | H20 GPUs (≥80GB VRAM)                      |
 | Datasets       | CT-RATE (internal) + RAD-ChestCT (external)       |
 
 
-📖 Citation
+
+### 🧩 Supplementary Visualizations
+
+Additional analysis materials are included in the supplementary file:
+➡️ **[`supplymentation.pdf`](https://github.com/laihaoran/BrgSA/blob/main/supplementary.pdf)**
+
+
+Feature visualization maps that illustrate the learned alignment space between image, text, and knowledge representations.
+
+Representative examples demonstrating how the proposed CMKB improves cross-modal separation and interpretability.
+
+These visualizations provide an intuitive overview of model performance and support the quantitative findings reported in the main paper.
+
+
+### 📖 Citation
 
 If this project helps your research, please cite:
 
