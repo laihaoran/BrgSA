@@ -1,0 +1,74 @@
+import torch
+
+from PIL import Image
+from .. import builder
+from .. import loss
+from .. import utils
+
+from pytorch_lightning.core import LightningModule
+from torch.autograd import Variable
+
+
+class PretrainCLIPProjGLModel(LightningModule):
+    def __init__(self, cfg):
+        super().__init__()
+
+        self.cfg = cfg
+        self.save_hyperparameters(self.cfg)
+        self.gloria = builder.build_CLIP_proj_gloabl_local_model(cfg)
+        
+        model_weights = self.gloria.state_dict()
+ 
+        ckpt = torch.load(cfg.model.pretrain)
+        ckpt_dict = ckpt["state_dict"]
+        fixed_ckpt_dict = {}
+        for k, v in ckpt_dict.items():
+            new_key = k.split("gloria.")[-1]
+            if new_key in model_weights:
+                fixed_ckpt_dict[new_key] = v
+        ckpt_dict = fixed_ckpt_dict
+        self.gloria.load_state_dict(ckpt_dict, strict=True)
+        self.lr = cfg.lightning.trainer.lr
+        self.dm = None
+
+    def configure_optimizers(self):
+        optimizer = builder.build_optimizer(self.cfg, self.lr, self.gloria)
+        scheduler = builder.build_scheduler(self.cfg, optimizer, self.dm)
+        return {"optimizer": optimizer, "lr_scheduler": scheduler}
+
+    def training_step(self, batch, batch_idx):
+        loss, sents = self.shared_step(batch, "train")
+
+        # # get attention map image
+        # if self.cfg.train.update_interval is not None:
+        #     if batch_idx % self.cfg.train.update_interval == 0:
+        #         imgs = batch["imgs"].cpu()
+        #         self.gloria.plot_attn_maps(
+        #             attn_maps, imgs, sents, self.current_epoch, batch_idx
+        #         )
+        return loss
+
+    def validation_step(self, batch, batch_idx):
+        loss, _ = self.shared_step(batch, "val")
+        return loss
+
+    def shared_step(self, batch, split):
+        """Similar to traning step"""
+
+        img_emb_l, img_emb_g, img_attention_map, text_emb_l, text_emb_g, text_attention_map, sents = self.gloria(batch)
+        loss = self.gloria.calc_loss(
+            img_emb_l, img_emb_g, img_attention_map, text_emb_l, text_emb_g, text_attention_map, sents
+        )
+
+        # log training progress
+        log_iter_loss = True if split == "train" else False
+        self.log(
+            f"{split}_loss",
+            loss,
+            on_epoch=True,
+            on_step=log_iter_loss,
+            logger=True,
+            prog_bar=True,
+        )
+
+        return loss, sents

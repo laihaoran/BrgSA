@@ -1,0 +1,137 @@
+experiment_name: 'BrgSA_best_model'
+phase: 'clip3d_proj_dict'
+trial_name:
+
+
+lightning:
+    trainer:
+       gpus: '0'
+       max_epochs: 39
+       distributed_backend: 'dp'
+       gradient_clip_val: 0.25
+       lr: 0.00005  
+       precision: 16
+       reload_dataloaders_every_epoch: False  # reload dataloader to change batch size
+    checkpoint_callback: 
+        monitor: 'val_loss'
+        dirpath: './data/ckpt'
+        save_last: true 
+        mode: min
+        save_top_k: 1
+    early_stopping_callback:
+        monitor: 'val_loss'
+        min_delta: 0.00
+        patience: 10
+        verbose: False
+        mode: 'min'
+    logger:
+        logger_type: 'CSVLogger'  #WandbLogger
+        save_dir: './data/CSV'
+
+model:
+    norm: false
+    gloria: 
+        local_loss_weight: 1.0
+        global_loss_weight: 1.0
+        mse_loss_weight: 0.5
+        global_recon_loss_weight: 1.0
+        ce_loss_weight: 1.0
+        temp1: 4.0
+        temp2: 5.0
+        temp3: 10.0
+    vision:
+        model_name: 'make_3d_model'
+        freeze_cnn: false
+        pretrained: true
+        base: 'vitb_3D'  
+        # base: 'conv'
+
+    # vision:
+    #     model_name: 'resnet_34_3d'
+    #     freeze_cnn: false
+    #     pretrained: true
+    #     base: 'cnn_3D'  
+    #     # base: 'conv'
+
+    # vision:
+    #     model_name: 'swin3d_base'
+    #     freeze_cnn: false
+    #     pretrained: true
+    #     base: 'swin_vit_3D'  
+    #     # base: 'conv'
+
+    
+    text:  
+        bert_type: "./Pretrain_model/M3AE_CXRBERT"
+        last_n_layers: 4  #4
+        aggregate_method: 'sum'
+        norm: false
+        embedding_dim: 768
+        freeze_bert: false
+        agg_tokens: true
+    dict:
+        input_dim: 768
+        dict_size: 2048
+        init_type:
+        pretrained_features:
+
+data: 
+    dataset: pretrain_chestct_ct_rate_unique_m3d
+    text: 
+      word_num: 97
+      captions_per_image: 100
+      full_report: false
+      merge_num: 5
+    image:
+        imsize: [256, 256, 128]
+
+
+transforms:     
+    norm:
+        type: 'standard'    # 使用 'standard' 类型的标准化
+        subtrahend: 0.4978  # 标准化中的均值
+        divisor: 0.2449     # 标准化中的标准差
+
+    rand_spatial_crop:
+        roi_size: [224, 224, 112]  # 调整到固定的裁剪尺寸
+    
+    # augmentation, we don't used augmentation for traning
+    random_rotate90:
+        # prob: 0.1                      # 旋转90度的概率
+        # spatial_axes: [0, 1]           # 在0轴和1轴（横截面和矢状面）上旋转
+
+    random_flip:
+        # axis_0_prob: 0.10              # 在0轴上翻转的概率
+        # axis_1_prob: 0.10              # 在1轴上翻转的概率
+        # axis_2_prob: 0.10              # 在2轴上翻转的概率
+
+    random_scale_intensity:
+        # factors: 0.1                   # 随机强度缩放的因子
+        # prob: 0.1                      # 应用强度缩放的概率
+
+    random_shift_intensity:
+        # offsets: 0.1                   # 随机强度偏移的偏移量
+        # prob: 0.1                      # 应用强度偏移的概率
+
+    scale_intensity_range:
+        a_min: -1000                   # 强度范围最小值
+        a_max: 1000                    # 强度范围最大值
+        b_min: -1                      # 目标范围最小值
+        b_max: 1                       # 目标范围最大值
+        clip: True                     # 是否裁剪超出范围的值
+
+
+train: 
+    update_interval: 1000
+    batch_size: 64
+    num_workers: 16
+    nvis: 4
+    rand_vis: false 
+    optimizer: 
+        name: 'Adam'   #changed from 'Adam'
+        weight_decay: 1e-6
+    scheduler: 
+        name: 'plateau' #
+        monitor: 'val_loss'
+        interval: 'epoch'
+        frequency: 1

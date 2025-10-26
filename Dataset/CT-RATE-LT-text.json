@@ -1,0 +1,18 @@
+{
+    "0": ["There is Pneumonia"],
+    "1": ["There is Pneumothorax"],
+    "2": ["There is Empyema"],
+    "3": ["There is Tuberculosis"],
+    "4": ["There is Pulmonary fibrosis"],
+    "5": ["There is Lung cyst"],
+    "6": ["There is Bronchial thickening"],
+    "7": ["There is Lung mass"],
+    "8": ["There is Osteophyte"],
+    "9": ["There is Rib fracture"],
+    "10": ["There is Atherosclerosis"],
+    "11": ["There is Pericardial calcification"],
+    "12": ["There is Spondylosis"],
+    "13": ["There is Pleural calcification"],
+    "14": ["There is Pneumomediastinum"]
+  }
+  

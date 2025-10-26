@@ -1,0 +1,21 @@
+{
+    "0": ["There is no Medical material"],
+    "1": ["There is no Arterial wall calcification"],
+    "2": ["There is no Cardiomegaly"],
+    "3": ["There is no Pericardial effusion"],
+    "4": ["There is no Coronary artery wall calcification"],
+    "5": ["There is no Hiatal hernia"],
+    "6": ["There is no Lymphadenopathy"],
+    "7": ["There is no Emphysema"],
+    "8": ["There is no Atelectasis"],
+    "9": ["There is no Lung nodule"],
+    "10": ["There is no Lung opacity"],
+    "11": ["There is no Pulmonary fibrotic sequela"],
+    "12": ["There is no Pleural effusion"],
+    "13": ["There is no Mosaic attenuation pattern"],
+    "14": ["There is no Peribronchial thickening"],
+    "15": ["There is no Consolidation"],
+    "16": ["There is no Bronchiectasis"],
+    "17": ["There is no Interlobular septal thickening"]
+  }
+  
