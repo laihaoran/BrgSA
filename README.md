@@ -91,12 +91,8 @@ python preprocess/data_process_radchestct.py \
   --pad-value -1024 \
   --num-workers 18
 ```
-### 🧠 Report Summarization
 
-To ensure transparency and reproducibility of the GPT-4o–assisted report summarization process described in our paper,  
-we provide both the **prompt details** and the **generated dataset** used for disease-level labeling.
-
-#### 📄 Prompt and Annotation Details
+### 📄 Prompt and Annotation Details
 All information related to the summarization process — including the **full GPT-4o prompt template**,  
 **operation procedure**, **radiologist verification protocol**, **correction examples**, and **agreement statistics** —  
 is documented in the supplementary file:
@@ -110,16 +106,19 @@ This PDF contains:
 - Common GPT-4o error categories with real correction examples.  
 - Example triplets (Original report → GPT-4o output → Final verified label).  
 
-#### 💾 Generated Dataset
-We also release a representative portion of the GPT-4o–generated and human-verified summaries at:
+We also release a representative CT-RATE-LT annotations at:
 
-**`./Dataset/CT-RATE_valid_GPT4Modify_text.json`**
+**`./Dataset/CT-RATE-LT-label.csv`**
+
+### 💾 Semantic Summarization
+We also release a representative portion of the GPT-4o–generated at:
+
+**`./Dataset/ctrate_train_unique_report_gpt4modify.json`**
 
 This dataset includes:
 - Original de-identified reports.  
 - GPT-4o summarized findings and impressions.  
-- Final radiologist-corrected labels.  
-- Flags indicating whether corrections were required.  
+
 
 ### 🪶 Pretrained Weights
 
