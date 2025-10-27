@@ -1,7 +1,7 @@
 # BrgSA: Bridged Semantic Alignment for Zero-shot 3D Medical Image Diagnosis
 
 BrgSA is an open-source framework designed for **zero-shot 3D medical image diagnosis** and **cross-modal retrieval**.  
-It introduces **Cross-Modal Knowledge Interaction (CMKI)** and **Cross-Modal Knowledge Bank (CMKB)** to jointly optimize
+It introduces **Semantic Summarization** and **Cross-Modal Knowledge Interaction (CMKI)**  to jointly optimize
 explicit (contrastive) and implicit (reconstruction) alignment between 3D CT volumes and radiology reports.
 
 This repository provides a **complete end-to-end pipeline** — from data downloading and preprocessing to model training, evaluation, and inference — along with **pretrained weights** and the **best-performing checkpoint**.
