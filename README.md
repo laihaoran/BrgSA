@@ -38,11 +38,16 @@ pip install -r requirements.txt
 
 ## 🩻 Dataset Preparation
 
-### Supported Datasets
+### 📦 Supported Datasets
 
-- CT-RATE (3D chest CT with reports)
+- **CT-RATE**  
+  A large-scale 3D chest CT dataset with structured diagnostic reports.  
+  🔗 Download: [https://huggingface.co/datasets/ibrahimhamamci/CT-RATE](https://huggingface.co/datasets/ibrahimhamamci/CT-RATE)
 
-- RAD-ChestCT (external dataset with mapped labels)
+- **RAD-ChestCT**  
+  External benchmark dataset with mapped labels for zero-shot evaluation.  
+  🔗 Download: [https://zenodo.org/records/6406114#.Ytl6OXbMLAQ](https://zenodo.org/records/6406114#.Ytl6OXbMLAQ)
+
 
 ### Preprocess
 All CT scans are resampled to (1.5, 1.5, 3.0) mm, cropped to (256, 256, 128)
