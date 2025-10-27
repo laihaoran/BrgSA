@@ -188,4 +188,4 @@ If this project helps your research, please cite:
 ### 📜 License
 
 This project is licensed under the Apache 2.0 License.
-Datasets and pretrained weights follow their respective original licenses.
+Datasets follow their respective original licenses.
