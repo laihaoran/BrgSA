@@ -178,7 +178,7 @@ If this project helps your research, please cite:
 ```
 @article{Lai2025BrgSA,
   title   = {Bridged Semantic Alignment for Zero-shot 3D Medical Image Diagnosis},
-  author  = {Haoran Lai and Zihang Jiang and Qingsong Yao and Rongsheng Wang and Zhiyang He and Xiaodong Tao and Wei Wei and Weifu Lv and S. Kevin Zhou},
+  author  = {Haoran Lai and Zihang Jiang and Qingsong Yao and Rongsheng Wang and Zhiyang He and Xiaodong Tao and Wei Wei and Shaohua Kevin Zhou},
   journal = {preprint/under review},
   year    = {2025}
 }
