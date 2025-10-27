@@ -97,7 +97,7 @@ python preprocess/data_process_radchestct.py \
   --num-workers 18
 ```
 
-### 📄 Prompt and Annotation Details
+### 📄 Prompt and Annotation Details for CT-RATE-LT
 All information related to the summarization process — including the **full GPT-4o prompt template**,  
 **operation procedure**, **radiologist verification protocol**, **correction examples**, and **agreement statistics** —  
 is documented in the supplementary file:
